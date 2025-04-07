@@ -2,7 +2,7 @@
 
 import React, { Suspense } from 'react';
 import clsx from 'clsx';
-import { useTableParams } from '@/app/hooks/useTableParams';
+import { useTableParams } from '@/hooks/useTableParams';
 
 export default function OrdersPagination({ total }: { total: number }) {
   const { page, limit, setParams } = useTableParams();

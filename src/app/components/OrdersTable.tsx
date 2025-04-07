@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useOrders } from '@/context/OrdersContext';
 import { filterAndSortOrders } from '@/utils/filterAndSortOrders';
-import { useTableParams } from '@/app/hooks/useTableParams';
+import { useTableParams } from '@/hooks/useTableParams';
 import { OrdersTableRow } from '@/app/components/OrdersTableRow';
 import { SearchLink } from '@/app/components/SearchLink';
 import OrdersPagination from '@/app/(admin)/orders/@pagination/page';

@@ -4,7 +4,7 @@ import React, { Suspense } from 'react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useTheme } from '@/context/ThemeContext';
-import { useTableParams } from '@/app/hooks/useTableParams';
+import { useTableParams } from '@/hooks/useTableParams';
 import { SearchInput } from '@/app/components/SearchInput';
 
 export default function OrdersToolbar() {
