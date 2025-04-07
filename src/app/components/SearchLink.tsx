@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams, usePathname } from 'next/navigation';
 import { getSearchWith, SearchParams } from '@/utils/searchHelper';
@@ -16,8 +16,10 @@ export const SearchLink: React.FC<Props> = ({ children, params, ...props }) => {
   const search = getSearchWith(searchParams, params);
 
   return (
-    <Link href={`${pathname}?${search}`} {...props}>
-      {children}
-    </Link>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Link href={`${pathname}?${search}`} {...props}>
+        {children}
+      </Link>
+    </Suspense>
   );
 };

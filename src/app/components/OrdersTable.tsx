@@ -1,13 +1,15 @@
+// src\app\components\OrdersTable.tsx
+
 /* eslint-disable react-hooks/exhaustive-deps */
 
 'use client';
 
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useOrders } from '@/context/OrdersContext';
 import { filterAndSortOrders } from '@/utils/filterAndSortOrders';
-import { useTableParams } from '@/utils/useTableParams';
+import { useTableParams } from '@/app/hooks/useTableParams';
 import { OrdersTableRow } from '@/app/components/OrdersTableRow';
 import { SearchLink } from '@/app/components/SearchLink';
 import OrdersPagination from '@/app/(admin)/orders/@pagination/page';
@@ -87,10 +89,8 @@ export function OrdersTable() {
   const end = start + limit;
   const paginatedOrders = listOfOrders.slice(start, end);
 
-  if (!orders.length) return <p>Loading...</p>;
-
   return (
-    <>
+    <Suspense fallback={<div>Loading...</div>}>
       <table className="min-w-full">
         <thead>
           <tr>
@@ -118,6 +118,7 @@ export function OrdersTable() {
             })}
           </tr>
         </thead>
+
         <tbody>
           {paginatedOrders.map((order) => (
             <Fragment key={order['Tracking ID']}>
@@ -128,6 +129,6 @@ export function OrdersTable() {
       </table>
 
       <OrdersPagination total={listOfOrders.length} />
-    </>
+    </Suspense>
   );
 }

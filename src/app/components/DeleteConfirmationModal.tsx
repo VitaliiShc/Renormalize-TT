@@ -1,5 +1,4 @@
 'use client';
-//checked
 
 import React from 'react';
 import { createPortal } from 'react-dom';
@@ -11,7 +10,9 @@ interface Props {
 }
 
 export function DeleteConfirmationModal({ isOpen, onClose, onConfirm }: Props) {
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -25,6 +26,7 @@ export function DeleteConfirmationModal({ isOpen, onClose, onConfirm }: Props) {
           >
             Cancel
           </button>
+
           <button
             onClick={() => {
               onConfirm();

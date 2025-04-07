@@ -33,9 +33,12 @@ export const filterAndSortOrders = ({
       const aValue = a[field];
       const bValue = b[field];
 
-      if (!aValue || !bValue) return 0;
+      if (!aValue || !bValue) {
+        return 0;
+      }
 
       const result = aValue.toString().localeCompare(bValue.toString());
+
       return ordered === 'desc' ? -result : result;
     });
 
