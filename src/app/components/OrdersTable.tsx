@@ -1,5 +1,3 @@
-// src\app\components\OrdersTable.tsx
-
 /* eslint-disable react-hooks/exhaustive-deps */
 
 'use client';
