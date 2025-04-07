@@ -1,7 +1,9 @@
 {
   "name": "renormalize-tt",
   "version": "0.1.0",
+  "description": "The basic Next.js coding skill challenge",
   "private": true,
+  "author": "Vitalii ShcHukin <vitaliy.shchukin@gmail.com>",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
