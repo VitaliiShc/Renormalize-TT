@@ -1,6 +1,6 @@
 'use client';
 
-import React, { ChangeEvent, useState, Suspense } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -8,7 +8,6 @@ export const SearchInput = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
-
   const initialQuery = searchParams.get('query') || '';
   const [inputValue, setInputValue] = useState(initialQuery);
 
@@ -31,14 +30,12 @@ export const SearchInput = () => {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <input
-        type="text"
-        placeholder="Search..."
-        className="border px-2 py-1 rounded"
-        value={inputValue}
-        onChange={onChange}
-      />
-    </Suspense>
+    <input
+      type="text"
+      placeholder="Search..."
+      className="border px-2 py-1 rounded"
+      value={inputValue}
+      onChange={onChange}
+    />
   );
 };

@@ -2,7 +2,19 @@
 
 import { useSearchParams, useRouter } from 'next/navigation';
 
-export function useTableParams() {
+type TableParams = {
+  page: number;
+  limit: number;
+  sort: string | null;
+  order: 'asc' | 'desc' | null;
+  query: string | null;
+};
+
+type SettableParams = Partial<
+  Omit<TableParams, 'order'> & { order: 'asc' | 'desc' | null }
+>;
+
+export const useTableParams = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -16,12 +28,19 @@ export function useTableParams() {
 
   const page = parseSafeInt(getParam('page', '1'), 1);
   const limit = parseSafeInt(getParam('limit', '10'), 10);
+  const sort = searchParams.get('sort');
+  const query = searchParams.get('query');
+  const orderRaw = searchParams.get('order');
+  const order: 'asc' | 'desc' | null =
+    orderRaw === 'asc' || orderRaw === 'desc' ? orderRaw : null;
 
-  const setParams = (params: Partial<{ page: number; limit: number }>) => {
+  const setParams = (params: SettableParams) => {
     const newParams = new URLSearchParams(searchParams.toString());
 
     Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined) {
+      if (value === null) {
+        newParams.delete(key);
+      } else if (value !== undefined) {
         newParams.set(key, String(value));
       }
     });
@@ -32,6 +51,9 @@ export function useTableParams() {
   return {
     page,
     limit,
+    sort,
+    order,
+    query,
     setParams,
   };
-}
+};

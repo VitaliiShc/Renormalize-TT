@@ -1,15 +1,14 @@
 'use client';
 
-import React from 'react';
 import { createPortal } from 'react-dom';
 
-interface Props {
+type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-}
+};
 
-export function DeleteConfirmationModal({ isOpen, onClose, onConfirm }: Props) {
+export const Modal = ({ isOpen, onClose, onConfirm }: ModalProps) => {
   if (!isOpen) {
     return null;
   }
@@ -41,4 +40,4 @@ export function DeleteConfirmationModal({ isOpen, onClose, onConfirm }: Props) {
     </div>,
     document.body
   );
-}
+};

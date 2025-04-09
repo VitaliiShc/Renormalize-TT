@@ -1,15 +1,15 @@
-import React from 'react';
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { useTheme } from '@/context/ThemeContext';
+import { useTheme } from '@/contexts/ThemeContext';
+import { usePathname } from 'next/navigation';
+import { makeStringCapitalize } from '@/lib/makeStringCapitalize';
 
-export interface HeaderProps {
-  children: React.ReactNode;
-  toggleTheme: () => void;
-}
-
-export default function Header({ children, toggleTheme }: HeaderProps) {
-  const { theme } = useTheme();
+export const Header = () => {
+  const { theme, toggleTheme } = useTheme();
+  const pathname = usePathname();
+  const currentPage = pathname.split('/').pop();
 
   return (
     <header className="flex items-center py-2.5 px-5 border-b border-gray-300">
@@ -25,11 +25,13 @@ export default function Header({ children, toggleTheme }: HeaderProps) {
           alt="Yankee go home"
         />
       </Link>
-      <h1 className="flex-1 text-xl font-bold ">{children}</h1>
+      <h1 className="flex-1 text-xl font-bold ">
+        {makeStringCapitalize(currentPage || '')}
+      </h1>
 
       <button className="btn cursor-pointer" onClick={toggleTheme}>
         Toggle Theme
       </button>
     </header>
   );
-}
+};

@@ -1,17 +1,18 @@
-import React from 'react';
 import './globals.css';
-import { OrdersProvider } from '@/context/OrdersContext';
+
+export const metadata = {
+  title: 'Next Challenge',
+  description: 'The basic Next.js coding skill challenge',
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en">
-      <body>
-        <OrdersProvider>{children}</OrdersProvider>
-      </body>
+    <html lang="uk">
+      <body>{children}</body>
     </html>
   );
 }

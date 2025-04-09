@@ -1,4 +1,4 @@
-import { Order } from '@/app/types/types';
+import { Order } from '@/types/types';
 
 type filterAndSortOrdersProps = {
   orders: Order[];

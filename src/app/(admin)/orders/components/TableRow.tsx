@@ -1,18 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
-import { useOrders } from '@/context/OrdersContext';
-import { formatDate } from '@/utils/formatDate';
-import { Order } from '@/app/types/types';
-import { StatusLabel } from '@/app/components/StatusLabel';
-import { DeleteConfirmationModal } from './DeleteConfirmationModal';
+import { useOrders } from '@/contexts/OrdersContext';
+import { formatDate } from '@/lib/formatDate';
+import { Order } from '@/types/types';
+import { Modal } from '@/components/Modal';
+import { StatusLabel } from '@/app/(admin)/orders/components/StatusLabel';
 
-export interface OrdersTableRowProps {
+type TableRowProps = {
   order: Order;
-}
+};
 
-export function OrdersTableRow({ order }: OrdersTableRowProps) {
+export const TableRow = ({ order }: TableRowProps) => {
   const { deleteOrder } = useOrders();
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -57,11 +57,11 @@ export function OrdersTableRow({ order }: OrdersTableRowProps) {
         </td>
       </tr>
 
-      <DeleteConfirmationModal
+      <Modal
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
         onConfirm={() => deleteOrder(order['Tracking ID'])}
       />
     </>
   );
-}
+};

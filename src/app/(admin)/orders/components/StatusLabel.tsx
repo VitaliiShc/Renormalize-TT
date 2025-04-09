@@ -1,10 +1,9 @@
-import React from 'react';
 import clsx from 'clsx';
-import { OrderStatus } from '@/app/types/types';
+import { OrderStatus } from '@/types/types';
 
-export interface StatusLabelProps {
+type StatusLabelProps = {
   status: OrderStatus;
-}
+};
 
 const statusStyles = {
   [OrderStatus.Delivered]: 'text-[#1f9254] bg-[#ebf9f1]',
@@ -12,7 +11,7 @@ const statusStyles = {
   [OrderStatus.Cancelled]: 'text-[#a30d11] bg-[#fbe7e8]',
 };
 
-export function StatusLabel({ status }: StatusLabelProps) {
+export const StatusLabel = ({ status }: StatusLabelProps) => {
   const label = status;
   const styles = statusStyles[status];
 
@@ -26,4 +25,4 @@ export function StatusLabel({ status }: StatusLabelProps) {
       {label}
     </div>
   );
-}
+};
