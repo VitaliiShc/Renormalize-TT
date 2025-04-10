@@ -18,7 +18,9 @@ export const Toolbar = () => {
           <div className="relative w-[42px] h-[31px]">
             <select
               value={limit}
-              onChange={(e) => setParams({ limit: +e.target.value, page: 1 })}
+              onChange={(evt) =>
+                setParams({ limit: +evt.target.value, page: 1 })
+              }
               className={clsx(
                 'appearance-none h-full pr-5 pl-2 rounded-lg outline-none',
                 theme === 'dark' && 'bg-[#141432]',
@@ -44,7 +46,6 @@ export const Toolbar = () => {
           </div>
           entries
         </label>
-
         <SearchInput />
       </div>
 

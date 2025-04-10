@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Table } from '@/app/(admin)/orders/components/Table';
 import { Toolbar } from '@/app/(admin)/orders/components/Toolbar';
 import { Pagination } from '@/app/(admin)/orders/components/Pagination';
@@ -5,9 +6,11 @@ import { Pagination } from '@/app/(admin)/orders/components/Pagination';
 export default function OrdersPage() {
   return (
     <section>
-      <Toolbar />
-      <Table />
-      <Pagination />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Toolbar />
+        <Table />
+        <Pagination />
+      </Suspense>
     </section>
   );
 }

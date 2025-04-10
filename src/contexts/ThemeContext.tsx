@@ -18,6 +18,8 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     const savedTheme = localStorage.getItem('theme') as Theme | null;
     if (savedTheme === 'light' || savedTheme === 'dark') {
       setTheme(savedTheme);
+    } else {
+      setTheme('light');
     }
   }, []);
 

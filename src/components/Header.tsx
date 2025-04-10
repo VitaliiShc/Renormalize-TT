@@ -13,7 +13,7 @@ export const Header = () => {
 
   return (
     <header className="flex items-center py-2.5 px-5 border-b border-gray-300">
-      <Link href="/" className="mr-5">
+      <Link href="/" className="w-6 h-6 mr-5">
         <Image
           src={
             theme === 'dark'
