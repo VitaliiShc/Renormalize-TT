@@ -4,11 +4,13 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useTableParams } from '@/hooks/useTableParams';
-import { SearchInput } from '@/app/(admin)/orders/components/SearchInput';
+import { SearchInput } from '@/components/SearchInput';
+import { Theme } from '@/types/types';
 
 export const Toolbar = () => {
   const { theme } = useTheme();
   const { limit, setParams } = useTableParams();
+  const isDarkTheme = theme === Theme.Dark;
 
   return (
     <section className="flex justify-between py-4">
@@ -23,8 +25,7 @@ export const Toolbar = () => {
               }
               className={clsx(
                 'appearance-none h-full pr-5 pl-2 rounded-lg outline-none',
-                theme === 'dark' && 'bg-[#141432]',
-                theme === 'light' && 'bg-[#e0e0e0]'
+                isDarkTheme ? 'bg-[#141432]' : 'bg-[#e0e0e0]'
               )}
             >
               <option value="10">10</option>
@@ -34,7 +35,7 @@ export const Toolbar = () => {
 
             <Image
               src={
-                theme === 'dark'
+                isDarkTheme
                   ? '/icons/caret-down-white.svg'
                   : '/icons/caret-down.svg'
               }

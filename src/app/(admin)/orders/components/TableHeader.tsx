@@ -1,12 +1,13 @@
 'use client';
 
-import Image from 'next/image';
-import { SortLink } from '@/app/(admin)/orders/components/SortLink';
+import { SortLink } from '@/components/SortLink';
+import { SortIcon } from '@/components/ui/SortIcon';
+import { SearchParams } from '@/lib/searchHelper';
 
 type TableHeaderProps = {
   sort: string | null;
-  order: string | null;
-  onSort: (sortBy: string) => { sort: string | null; order: string | null };
+  reverse: boolean;
+  onSort: (sortKey: string) => SearchParams;
 };
 
 const headers = [
@@ -20,22 +21,7 @@ const headers = [
   { label: 'Actions', sortable: false },
 ];
 
-export const TableHeader = ({ sort, order, onSort }: TableHeaderProps) => {
-  const setSortIcon = (key: string) => {
-    let iconSrc = '/icons/caret-sort.svg';
-
-    switch (true) {
-      case sort === key && !order:
-        iconSrc = '/icons/caret-up.svg';
-        break;
-      case sort === key && !!order:
-        iconSrc = '/icons/caret-down.svg';
-        break;
-    }
-
-    return <Image src={iconSrc} width={16} height={16} alt="sort" />;
-  };
-
+export const TableHeader = ({ sort, reverse, onSort }: TableHeaderProps) => {
   return (
     <thead>
       <tr>
@@ -52,7 +38,9 @@ export const TableHeader = ({ sort, order, onSort }: TableHeaderProps) => {
                 <p>{header.label}</p>
                 <p>
                   {isSortable && (
-                    <SortLink params={onSort(key)}>{setSortIcon(key)}</SortLink>
+                    <SortLink params={onSort(key)}>
+                      <SortIcon sort={sort} reverse={reverse} column={key} />
+                    </SortLink>
                   )}
                 </p>
               </div>

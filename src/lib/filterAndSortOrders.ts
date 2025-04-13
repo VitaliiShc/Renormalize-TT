@@ -1,10 +1,10 @@
 import { Order } from '@/types/types';
 
-type filterAndSortOrdersProps = {
+type FilterAndSortOrdersProps = {
   orders: Order[];
   query: string | null;
   sortered: string | null;
-  ordered: 'asc' | 'desc' | null;
+  reversed: boolean;
 };
 
 const fieldMap: Record<string, keyof Order> = {
@@ -18,9 +18,9 @@ export const filterAndSortOrders = ({
   orders,
   query,
   sortered,
-  ordered,
-}: filterAndSortOrdersProps) => {
-  const filteredSortedOrders = orders.filter((order) =>
+  reversed,
+}: FilterAndSortOrdersProps) => {
+  const filteredOrders = orders.filter((order) =>
     !query
       ? true
       : order['Product Name'].toLowerCase().includes(query.trim().toLowerCase())
@@ -29,7 +29,7 @@ export const filterAndSortOrders = ({
   const field = sortered ? fieldMap[sortered] : null;
 
   if (field) {
-    const sorted = [...filteredSortedOrders].sort((a, b) => {
+    const sorted = [...filteredOrders].sort((a, b) => {
       const aValue = a[field];
       const bValue = b[field];
 
@@ -39,11 +39,11 @@ export const filterAndSortOrders = ({
 
       const result = aValue.toString().localeCompare(bValue.toString());
 
-      return ordered === 'desc' ? -result : result;
+      return reversed ? -result : result;
     });
 
     return sorted;
   }
 
-  return filteredSortedOrders;
+  return filteredOrders;
 };

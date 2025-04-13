@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { Table } from '@/app/(admin)/orders/components/Table';
-import { Toolbar } from '@/app/(admin)/orders/components/Toolbar';
-import { Pagination } from '@/app/(admin)/orders/components/Pagination';
+import { Toolbar } from '@/components/Toolbar';
+import { Pagination } from '@/components/Pagination';
 
 export default function OrdersPage() {
   return (

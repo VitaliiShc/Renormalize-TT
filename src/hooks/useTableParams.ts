@@ -6,54 +6,70 @@ type TableParams = {
   page: number;
   limit: number;
   sort: string | null;
-  order: 'asc' | 'desc' | null;
   query: string | null;
+  reverse: boolean;
 };
 
-type SettableParams = Partial<
-  Omit<TableParams, 'order'> & { order: 'asc' | 'desc' | null }
->;
+type SetTableParams = Partial<TableParams>;
 
 export const useTableParams = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const getParam = (key: string, fallback: string) =>
-    searchParams.get(key) ?? fallback;
+  const getParam = (key: string, fallback: string) => {
+    return searchParams.get(key) ?? fallback;
+  };
 
   const parseSafeInt = (value: string, fallback: number) => {
     const parsed = parseInt(value, 10);
     return Number.isNaN(parsed) ? fallback : parsed;
   };
 
-  const page = parseSafeInt(getParam('page', '1'), 1);
+  const currentPage = parseSafeInt(getParam('page', '1'), 1);
   const limit = parseSafeInt(getParam('limit', '10'), 10);
   const sort = searchParams.get('sort');
   const query = searchParams.get('query');
-  const orderRaw = searchParams.get('order');
-  const order: 'asc' | 'desc' | null =
-    orderRaw === 'asc' || orderRaw === 'desc' ? orderRaw : null;
+  const reverse = searchParams.get('reverse') === 'true';
 
-  const setParams = (params: SettableParams) => {
+  const setParams = (params: SetTableParams) => {
     const newParams = new URLSearchParams(searchParams.toString());
 
     Object.entries(params).forEach(([key, value]) => {
-      if (value === null) {
+      if (value === null || value === false) {
         newParams.delete(key);
-      } else if (value !== undefined) {
+      } else {
         newParams.set(key, String(value));
       }
     });
-
-    router.push(`?${newParams.toString()}`);
+    console.log('[setParams] router.push with:', newParams.toString());
+    router.push(`?${newParams.toString()}`, { scroll: false });
   };
 
+  const setSorting = (
+    sortKey: string
+  ): { sort: string | null; reverse: boolean } => {
+    switch (true) {
+      case !sort || sort !== sortKey:
+        return { sort: sortKey, reverse: false };
+
+      case sort === sortKey && !reverse:
+        return { sort: sortKey, reverse: true };
+
+      default:
+        return { sort: null, reverse: false };
+    }
+  };
+
+  console.log('[useTableParams] searchParams:', searchParams.toString());
+  console.log('[useTableParams] currentPage:', currentPage);
+
   return {
-    page,
+    currentPage,
     limit,
     sort,
-    order,
+    reverse,
     query,
     setParams,
+    setSorting,
   };
 };

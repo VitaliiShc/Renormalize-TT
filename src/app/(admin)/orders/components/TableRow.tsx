@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { useOrders } from '@/contexts/OrdersContext';
-import { formatDate } from '@/lib/formatDate';
+import { formatDate } from '../../../../utils/formatDate';
 import { Order } from '@/types/types';
 import { Modal } from '@/components/Modal';
-import { StatusLabel } from '@/app/(admin)/orders/components/StatusLabel';
+import { StatusLabel } from '@/components/ui/StatusLabel';
 
 type TableRowProps = {
   order: Order;

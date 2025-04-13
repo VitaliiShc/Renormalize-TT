@@ -1,6 +1,6 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -11,7 +11,7 @@ export const SearchInput = () => {
   const initialQuery = searchParams.get('query') || '';
   const [inputValue, setInputValue] = useState(initialQuery);
 
-  const handleSearch = useDebouncedCallback((term: string) => {
+  const updateQuery = (term: string) => {
     const params = new URLSearchParams(searchParams.toString());
 
     if (term) {
@@ -21,12 +21,23 @@ export const SearchInput = () => {
     }
 
     router.push(`${pathname}?${params.toString()}`);
+  };
+
+  const handleSearch = useDebouncedCallback((term: string) => {
+    updateQuery(term);
   }, 300);
 
   const onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newValue = event.target.value;
     setInputValue(newValue);
     handleSearch(newValue);
+  };
+
+  const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      handleSearch.cancel();
+      updateQuery(inputValue);
+    }
   };
 
   return (
@@ -36,6 +47,7 @@ export const SearchInput = () => {
       className="border px-2 py-1 rounded"
       value={inputValue}
       onChange={onChange}
+      onKeyDown={onKeyDown}
     />
   );
 };

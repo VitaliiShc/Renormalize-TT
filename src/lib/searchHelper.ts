@@ -1,26 +1,18 @@
-export type SearchParams = {
-  [key: string]: string | string[] | null;
-};
+export type SearchParams = Record<string, string | number | boolean | null>;
 
 export const getSearchWith = (
   currentParams: URLSearchParams,
-  paramsToUpdate: SearchParams
+  newParams: SearchParams
 ): string => {
-  const newParams = new URLSearchParams(currentParams.toString());
+  const params = new URLSearchParams(currentParams.toString());
 
-  Object.entries(paramsToUpdate).forEach(([key, value]) => {
-    if (value === null) {
-      newParams.delete(key);
-    } else if (Array.isArray(value)) {
-      newParams.delete(key);
-
-      value.forEach((part) => {
-        newParams.append(key, part);
-      });
+  Object.entries(newParams).forEach(([key, value]) => {
+    if (value === null || value === false) {
+      params.delete(key);
     } else {
-      newParams.set(key, value);
+      params.set(key, String(value));
     }
   });
 
-  return newParams.toString();
+  return params.toString();
 };

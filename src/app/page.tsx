@@ -2,9 +2,13 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main>
-      <h1 className="text-3xl">Hello, Next.js!</h1>
-      <p>This is my basic Next.js coding skill challenge</p>
+    <main className="pt-2 px-6 mx-auto">
+      <h1 className="text-2xl font-semibold text-center mb-2">
+        Hello, Next.js!
+      </h1>
+      <p className="text-center italic text-[#666]">
+        This is my basic Next.js coding skill challenge
+      </p>
       <h2>The task was assigned:</h2>
       <ul>
         <li>need to make a table and add a light/dark theme switch.</li>

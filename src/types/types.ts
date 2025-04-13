@@ -14,3 +14,8 @@ export enum OrderStatus {
   Process = 'Process',
   Cancelled = 'Cancelled',
 }
+
+export enum Theme {
+  Light = 'light',
+  Dark = 'dark',
+}

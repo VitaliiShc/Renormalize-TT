@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+
 'use client';
 
 import { Fragment, useEffect } from 'react';
@@ -7,39 +8,31 @@ import { useTableParams } from '@/hooks/useTableParams';
 import { useFilteredOrders } from '@/hooks/useFilteredOrders';
 import { StateMessage } from '@/components/StateMessage';
 import { TableHeader } from './TableHeader';
-import { TableRow } from '@/app/(admin)/orders/components/TableRow';
+import { TableRow } from './TableRow';
 
 export const Table = () => {
   const { isLoading, isError } = useOrders();
-  const { page, limit, sort, order, query, setParams } = useTableParams();
+  const { currentPage, limit, sort, reverse, query, setParams, setSorting } =
+    useTableParams();
   const filteredOrders = useFilteredOrders();
 
-  const setSorting = (sortBy: string) => {
-    switch (true) {
-      case !sort && !order:
-      case sort !== sortBy:
-        return { sort: sortBy, order: null };
-      case sort === sortBy && !order:
-        return { sort: sortBy, order: 'desc' };
-      case sort === sortBy && !!order:
-      default:
-        return { sort: null, order: null };
-    }
-  };
-
-  const start = (page - 1) * limit;
+  const start = (currentPage - 1) * limit;
   const end = start + limit;
   const paginatedOrders = filteredOrders.slice(start, end);
 
   useEffect(() => {
-    if (page > 1 && (page - 1) * limit >= filteredOrders.length) {
-      const lastPage = Math.max(1, Math.ceil(filteredOrders.length / limit));
+    const lastPage = Math.max(1, Math.ceil(filteredOrders.length / limit));
+
+    if (filteredOrders.length > 0 && currentPage > lastPage) {
       setParams({ page: lastPage });
     }
-  }, [filteredOrders.length, page, limit]);
+  }, [filteredOrders.length, currentPage, limit]);
 
   useEffect(() => {
-    setParams({ page: 1 });
+    const searchPage = new URLSearchParams(window.location.search).get('page');
+    if (!searchPage) {
+      setParams({ page: 1 });
+    }
   }, [query]);
 
   return (
@@ -52,8 +45,7 @@ export const Table = () => {
 
       {!isLoading && !isError && filteredOrders.length > 0 && (
         <table className="min-w-full">
-          <TableHeader sort={sort} order={order} onSort={setSorting} />
-
+          <TableHeader sort={sort} reverse={reverse} onSort={setSorting} />
           <tbody>
             {paginatedOrders.map((order) => (
               <Fragment key={order['Tracking ID']}>
