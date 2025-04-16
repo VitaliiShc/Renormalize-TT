@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@/contexts/ThemeContext';
 import { usePathname } from 'next/navigation';
-import { makeStringCapitalize } from '../utils/makeStringCapitalize';
+import { makeStringCapitalize } from '@/utils/makeStringCapitalize';
 import { Theme } from '@/types/types';
 
 export const Header = () => {
@@ -13,16 +13,16 @@ export const Header = () => {
   const tableName = pathname.split('/').pop();
 
   return (
-    <header className="flex items-center py-2.5 px-5 border-b border-gray-300">
-      <Link href="/" className="w-6 h-6 mr-5">
+    <header className="flex items-center py-2.5 px-4 border-b border-gray-300 -mx-4">
+      <Link href="/" className="w-5 h-6 mr-3 flex justify-center items-center">
         <Image
           src={
             theme === Theme.Dark
               ? '/icons/angle-left-white.svg'
               : '/icons/angle-left-black.svg'
           }
-          width={24}
-          height={24}
+          width={20}
+          height={20}
           alt="Yankee go home"
         />
       </Link>
@@ -30,7 +30,7 @@ export const Header = () => {
         {makeStringCapitalize(tableName || '')}
       </h1>
 
-      <button className="btn cursor-pointer" onClick={toggleTheme}>
+      <button className="cursor-pointer" onClick={toggleTheme}>
         Toggle Theme
       </button>
     </header>

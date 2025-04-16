@@ -7,8 +7,8 @@ import { useOrders } from '@/contexts/OrdersContext';
 import { useTableParams } from '@/hooks/useTableParams';
 import { useFilteredOrders } from '@/hooks/useFilteredOrders';
 import { StateMessage } from '@/components/StateMessage';
-import { TableHeader } from './TableHeader';
-import { TableRow } from './TableRow';
+import { TableHeader } from '@/app/(admin)/orders/components/TableHeader';
+import { TableRow } from '@/app/(admin)/orders/components/TableRow';
 
 export const Table = () => {
   const { isLoading, isError } = useOrders();
@@ -30,6 +30,7 @@ export const Table = () => {
 
   useEffect(() => {
     const searchPage = new URLSearchParams(window.location.search).get('page');
+
     if (!searchPage) {
       setParams({ page: 1 });
     }

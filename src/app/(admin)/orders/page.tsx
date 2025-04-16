@@ -5,12 +5,10 @@ import { Pagination } from '@/components/Pagination';
 
 export default function OrdersPage() {
   return (
-    <section>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Toolbar />
-        <Table />
-        <Pagination />
-      </Suspense>
-    </section>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Toolbar />
+      <Table />
+      <Pagination />
+    </Suspense>
   );
 }

@@ -6,6 +6,7 @@ import { useTheme } from '@/contexts/ThemeContext';
 import { useTableParams } from '@/hooks/useTableParams';
 import { SearchInput } from '@/components/SearchInput';
 import { Theme } from '@/types/types';
+import Button from '@/components/Button';
 
 export const Toolbar = () => {
   const { theme } = useTheme();
@@ -14,7 +15,7 @@ export const Toolbar = () => {
 
   return (
     <section className="flex justify-between py-4">
-      <div className="flex justify-between items-center gap-4 text-xs">
+      <div className="flex justify-between items-center gap-6 text-xs">
         <label className="flex items-center gap-3">
           Show
           <div className="relative w-[42px] h-[31px]">
@@ -24,7 +25,7 @@ export const Toolbar = () => {
                 setParams({ limit: +evt.target.value, page: 1 })
               }
               className={clsx(
-                'appearance-none h-full pr-5 pl-2 rounded-lg outline-none',
+                'appearance-none h-full pr-5 pl-2 rounded-lg outline-none cursor-pointer',
                 isDarkTheme ? 'bg-[#141432]' : 'bg-[#e0e0e0]'
               )}
             >
@@ -49,8 +50,10 @@ export const Toolbar = () => {
         </label>
         <SearchInput />
       </div>
-
-      <button className="btn-primary ml-4">Add Customer</button>
+      <Button>
+        <Image src="/icons/plus.svg" alt="add" width={20} height={20} />
+        Add Customer
+      </Button>
     </section>
   );
 };

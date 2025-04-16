@@ -41,7 +41,6 @@ export const useTableParams = () => {
         newParams.set(key, String(value));
       }
     });
-    console.log('[setParams] router.push with:', newParams.toString());
     router.push(`?${newParams.toString()}`, { scroll: false });
   };
 
@@ -51,17 +50,12 @@ export const useTableParams = () => {
     switch (true) {
       case !sort || sort !== sortKey:
         return { sort: sortKey, reverse: false };
-
       case sort === sortKey && !reverse:
         return { sort: sortKey, reverse: true };
-
       default:
         return { sort: null, reverse: false };
     }
   };
-
-  console.log('[useTableParams] searchParams:', searchParams.toString());
-  console.log('[useTableParams] currentPage:', currentPage);
 
   return {
     currentPage,

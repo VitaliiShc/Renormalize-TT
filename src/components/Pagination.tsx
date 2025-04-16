@@ -3,9 +3,9 @@
 import { useTableParams } from '@/hooks/useTableParams';
 import { useFilteredOrders } from '@/hooks/useFilteredOrders';
 import { usePaginationLogic } from '@/hooks/usePaginationLogic';
-import { PaginationStepButton } from './PaginationStepButton';
-import { PaginationPageButton } from './PaginationPageButton';
-import { PaginationEllipsis } from './ui/PaginationEllipsis';
+import { PaginationStepButton } from '@/components/PaginationStepButton';
+import { PaginationPageButton } from '@/components/PaginationPageButton';
+import { PaginationEllipsis } from '@/components/ui/PaginationEllipsis';
 
 export const Pagination = () => {
   const filteredOrders = useFilteredOrders();
@@ -21,14 +21,14 @@ export const Pagination = () => {
   const displayedPages = generatePages();
 
   return (
-    <div className="flex justify-center items-center gap-2 p-4 flex-wrap text-sm">
+    <div className="flex justify-center items-center gap-3 p-4 flex-wrap text-sm">
       <PaginationStepButton
         direction="prev"
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
       />
 
-      <div className="flex gap-1">
+      <div className="flex gap-3">
         {displayedPages.map((page, idx) =>
           typeof page === 'number' ? (
             <PaginationPageButton

@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import clsx from 'clsx';
 
 export const ScrollToTopButton = () => {
   const [isAtTop, setIsAtTop] = useState(true);
@@ -22,12 +24,17 @@ export const ScrollToTopButton = () => {
   return (
     <button
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 z-50 px-3 py-2 rounded-full bg-blue-600 text-white shadow-lg transition-opacity duration-300 hover:bg-blue-700 ${
+      className={clsx(
+        'fixed bottom-6 right-6 z-50 h-10 w-10 rounded-full bg-[#624de3] transition-opacity duration-300 hover:bg-[#4338ca] cursor-pointer flex justify-center items-center',
         isAtTop ? 'opacity-0 pointer-events-none' : 'opacity-100'
-      }`}
-      aria-label="Scroll to top"
+      )}
     >
-      ↑
+      <Image
+        src={'/icons/angle-up.svg'}
+        width={20}
+        height={20}
+        alt="Scroll to top"
+      />
     </button>
   );
 };

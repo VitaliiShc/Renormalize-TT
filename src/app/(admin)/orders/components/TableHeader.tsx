@@ -1,5 +1,6 @@
 'use client';
 
+import clsx from 'clsx';
 import { SortLink } from '@/components/SortLink';
 import { SortIcon } from '@/components/ui/SortIcon';
 import { SearchParams } from '@/lib/searchHelper';
@@ -32,18 +33,20 @@ export const TableHeader = ({ sort, reverse, onSort }: TableHeaderProps) => {
           return (
             <th
               key={header.label}
-              className="py-4 text-sm font-bold w-1/8 pr-4 first:justify-center last:justify-center"
+              className={clsx(
+                'py-4 text-sm font-bold px-2',
+                !['Tracking ID', 'Actions'].includes(header.label) &&
+                  'text-left'
+              )}
             >
-              <div className="flex justify-between">
+              {isSortable ? (
+                <SortLink params={onSort(key)}>
+                  <p>{header.label}</p>
+                  <SortIcon sort={sort} reverse={reverse} column={key} />
+                </SortLink>
+              ) : (
                 <p>{header.label}</p>
-                <p>
-                  {isSortable && (
-                    <SortLink params={onSort(key)}>
-                      <SortIcon sort={sort} reverse={reverse} column={key} />
-                    </SortLink>
-                  )}
-                </p>
-              </div>
+              )}
             </th>
           );
         })}

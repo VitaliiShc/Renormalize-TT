@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
@@ -41,13 +42,22 @@ export const SearchInput = () => {
   };
 
   return (
-    <input
-      type="text"
-      placeholder="Search..."
-      className="border px-2 py-1 rounded"
-      value={inputValue}
-      onChange={onChange}
-      onKeyDown={onKeyDown}
-    />
+    <div className="relative w-55 h-8">
+      <Image
+        src="/icons/search.svg"
+        alt="search"
+        width={16}
+        height={16}
+        className="absolute left-2 top-1/2 transform -translate-y-1/2 pointer-events-none"
+      />
+      <input
+        type="text"
+        placeholder="Search..."
+        className="border border-[#9e9e9e] h-full w-full pl-8 pr-2 rounded-lg text-xs focus:outline-none"
+        value={inputValue}
+        onChange={onChange}
+        onKeyDown={onKeyDown}
+      />
+    </div>
   );
 };

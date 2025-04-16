@@ -13,7 +13,7 @@ export const PaginationStepButton = ({
 }: PaginationStepButtonProps) => {
   return (
     <button
-      className="btn cursor-pointer"
+      className="cursor-pointer text-[#9e9e9e] text-xs hover:text-inherit transition duration-300 ease-linear"
       onClick={onClick}
       disabled={disabled}
     >

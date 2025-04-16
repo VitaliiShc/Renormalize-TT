@@ -19,7 +19,11 @@ export const SortLink: React.FC<SortLinkProps> = ({
   const search = getSearchWith(searchParams, params);
 
   return (
-    <Link href={`${pathname}?${search}`} {...rest}>
+    <Link
+      href={`${pathname}?${search}`}
+      {...rest}
+      className="flex justify-between"
+    >
       {children}
     </Link>
   );

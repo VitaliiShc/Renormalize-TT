@@ -16,7 +16,6 @@ const OrdersContext = createContext<OrdersContextValue | undefined>(undefined);
 
 export const OrdersProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
-
   const { data: orders = [], isLoading, isError } = useOrdersQuery();
 
   const deleteOrder = (trackingId: number) => {

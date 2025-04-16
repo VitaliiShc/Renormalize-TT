@@ -1,22 +1,35 @@
-'use client';
+import { clsx } from 'clsx';
+import { type ReactNode } from 'react';
 
-import React from 'react';
-import clsx from 'clsx';
-
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonProps = {
+  children: ReactNode;
+  onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
+  className?: string;
   disabled?: boolean;
-}
+};
 
-export const Button = ({ disabled, ...rest }: ButtonProps) => {
+export default function Button({
+  children,
+  onClick,
+  type = 'button',
+  className,
+  disabled = false,
+}: ButtonProps) {
   return (
     <button
-      {...rest}
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
       className={clsx(
-        'py-2.5 px-5 bg-gray-900 text-zinc-50 text-base text-center font-medium rounded',
-        !disabled && 'hover:bg-gray-800 active:bg-gray-950',
-        disabled && 'text-zinc-100'
+        'inline-flex items-center gap-2 px-3 py-2 rounded-lg text-white transition',
+        disabled
+          ? 'bg-gray-400 cursor-not-allowed'
+          : 'bg-[#624de3] hover:bg-[#4338ca]',
+        className
       )}
-    />
+    >
+      {children}
+    </button>
   );
-};
+}
