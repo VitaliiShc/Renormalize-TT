@@ -15,7 +15,8 @@ export default function Home() {
         <li>Need to make a table and add a light/dark theme switch.</li>
 
         <li>
-          Pagination/count per page/ search/row delete should be working items*.
+          Pagination / count per page / search / row delete should be working
+          items*.
         </li>
 
         <li>
